@@ -2,7 +2,7 @@
 
 Find your birthday hexcode
 
-[Birthday hex app preview](birthday-hex.png)
+![Birthday hex app preview](birthday-hex.png)
 
 ## License
 
