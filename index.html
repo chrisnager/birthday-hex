@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <title>Birthday hex</title>
         <meta name="description" content="Find your birthday hexcode">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <meta property="og:title" content="Birthday hex">
         <meta property='og:locale' content="en_US">
@@ -15,52 +14,139 @@
         <meta property="og:type" content="Website">
         <meta property='og:site_name' content="Birthday hex"/>
         <meta property="og:url" content="http://chrisnager.github.io/birthday-hex/">
-        <meta property="og:image" content="http://chrisnager.github.io/birthday-hex/apple-touch-icon.png">
+        <meta property="og:image" content="http://chrisnager.github.io/birthday-hex/birthday-hex.png">
 
+        <script src="//twemoji.maxcdn.com/twemoji.min.js"></script> 
         <style>
-            body{margin:0;font:300 1.25em "Helvetica Neue",sans-serif}
-            header,section,footer{padding:2rem}
-            main{color:#fff}
-            h1{font-weight:500}
-            a{text-decoration:none;color:#000}
-            label{cursor:pointer}
-            input{box-sizing:border-box;width:100%;margin:1em 0;border:.125rem solid;border-radius:.25rem;padding:1rem;font-size:1em}
-            h2{padding:4rem 2rem 0;font-size:1em;color:#000}
-            .birthday-hex{display:block;font-size:2em}
-            .famous-birthdays-list{padding-left:0;list-style:none}
-            .famous-birthdays-list>li{padding:2rem}
-            .other-birthdays{padding:0}
+            .app {
+                margin: 0;
+                font: 300 1.25em "Helvetica Neue",sans-serif;
+            }
+
+            @media (min-width: 40rem) {
+                .app {
+                    font-size: 1.5em;
+                }
+            }
+
+            .header,.main__section,.footer {
+                padding: 2rem;
+            }
+
+            .header__cake {
+                width: 2.5em;
+                height: 2.5em;
+                display: block;
+            }
+
+            .header__title {
+                margin: 0 0 1rem;
+                font-weight: 500;
+            }
+
+            .header__description {
+                margin: 0;
+            }
+
+            .choose-birthday {
+                background-color: #ffac33;
+            }
+
+            .choose-birthday__date-label {
+                cursor: pointer;
+            }
+
+            .choose-birthday__date-selector {
+                margin-top: 1rem;
+                border: .125rem solid;
+                border-radius: .25rem;
+                padding: 1rem;
+                font-size: 1em;
+            }
+
+            .main {
+                color: #fff;
+            }
+
+            .my-birthday__hex,.other-birthdays__list>li>pre {
+                color: #ffac33;
+            }
+
+            .my-birthday__hex {
+                margin: 0;
+                display: block;
+                font-size: 2em;
+            }
+
+            .other-birthdays {
+                padding: 0;
+            }
+
+            .other-birthdays__title {
+                margin: 8rem 2rem 2rem;
+                font-size: 1em;
+                color: #000;
+            }
+
+            .other-birthdays__list {
+                margin: 0;
+                padding-left: 0;
+                list-style: none;
+            }
+
+            .other-birthdays__list>li {
+                padding: 2rem;
+            }
+
+            .footer__link {
+                text-decoration: none;
+                color: #000;
+            }
+
+            .footer__heart {
+                width: 1em;
+                height: 1em;
+                margin: 0 .05em 0 .1em;
+                vertical-align: -.1em;
+            }
         </style>
     </head>
-    <body>
-        <header>
-            <h1>Birthday hex</h1>
-            <label>Enter your birthday:<br><input type="date" value="1986-09-12"></label>
+    <body class="app">
+        <header class="header">
+            <h1 class="header__title">Birthday hex</h1>
+            <p class="header__description">Find your birthday hexcode</p>
         </header>
 
-        <main>
-            <section class="my-birthday">
-                <pre><code class="birthday-hex"></code></pre>
-                <p>is your birthday hex</p>
+        <main class="main">
+            <section class="main__section  choose-birthday">
+                <label class="choose-birthday__date-label">Enter your birthday:<br><input class="choose-birthday__date-selector" type="date" value="1986-09-12"></label>
             </section>
-            <section class="other-birthdays">
-                <h2>Historical hexcodes</h2>
-                <ul class="famous-birthdays-list"></ul>
+            <section class="main__section  my-birthday  js-birthday">
+                <pre class="my-birthday__hex  js-hex"></pre>
+                <p class="my-birthday__info">is your birthday hex</p>
+            </section>
+            <section class="main__section  other-birthdays">
+                <h2 class="other-birthdays__title">Some historical birthday hexcodes:</h2>
+                <ul class="other-birthdays__list  js-historical-list"></ul>
             </section>
         </main>
 
-        <footer>
-            <small>
-                <a href="//twitter.com/chrisnager">@chrisnager</a>
+        <footer class="footer">
+            <small class="footer__inner-wrapper">
+                <a class="footer__link  js-twemoji-link" href="//github.com/twitter/twemoji">&lt;3</a>
                 &middot;
-                <a href="//github.com/chrisnager/birthday-hex">github</a>
+                <a class="footer__link" href="//twitter.com/chrisnager">@chrisnager</a>
                 &middot;
-                <a href="//whatcolourisit.scn9a.org/">inspiration</a>
+                <a class="footer__link" href="//github.com/chrisnager/birthday-hex">github</a>
+                &middot;
+                <a class="footer__link" href="//whatcolourisit.scn9a.org/">inspiration</a>
             </small>
         </footer>
 
         <script>
             var birthdayInput = document.getElementsByTagName('input')[0],
+                pageTitle = document.getElementsByClassName('header__title')[0],
+                footerHeart = document.getElementsByClassName('js-twemoji-link')[0],
                 famousBirthdays = [
                     {
                         name: 'George Washington',
@@ -103,8 +189,8 @@
            }
 
             function setHex(val) {
-                document.getElementsByClassName('my-birthday')[0].style.backgroundColor = getBirthdayHex(val);
-                document.getElementsByClassName('birthday-hex')[0].innerHTML = getBirthdayHex(val);
+                document.getElementsByClassName('js-birthday')[0].style.backgroundColor = getBirthdayHex(val);
+                document.getElementsByClassName('js-hex')[0].innerHTML = getBirthdayHex(val);
             }
 
             function showFamousBirthdays(birthdays) {
@@ -115,7 +201,7 @@
                         famousBirthdaysListItemHex = document.createElement('pre');
 
                     getBirthdayHex(birthday);
-                    document.getElementsByClassName('famous-birthdays-list')[0].appendChild(famousBirthdaysListItem);
+                    document.getElementsByClassName('js-historical-list')[0].appendChild(famousBirthdaysListItem);
                     famousBirthdaysListItem.innerHTML = name;
                     famousBirthdaysListItem.appendChild(famousBirthdaysListItemHex);
                     famousBirthdaysListItemHex.innerHTML = getBirthdayHex(birthday);
@@ -123,10 +209,32 @@
                 }
             }
 
+            function getPageTitle() {
+                var cake = twemoji.parse('🍰 ', {
+                    folder: 'svg',
+                    ext: '.svg',
+                    className: 'header__cake'
+                });
+
+                return cake + pageTitle.innerHTML;
+            }
+
+            function getHeart() {
+                var heart = twemoji.parse('\u2764\uFE0F', {
+                    folder: 'svg',
+                    ext: '.svg',
+                    className: 'footer__heart'
+                });
+
+                return heart;
+            }
+
             birthdayInput.addEventListener('input', function() {
                 setHex(birthdayInput.value);
             });
 
+            pageTitle.innerHTML = getPageTitle();
+            footerHeart.innerHTML = getHeart();
             setHex(birthdayInput.value);
             showFamousBirthdays(famousBirthdays);
         </script>
