@@ -16,11 +16,11 @@
         <meta property="og:url" content="http://chrisnager.github.io/birthday-hex/">
         <meta property="og:image" content="http://chrisnager.github.io/birthday-hex/birthday-hex.png">
 
-        <script src="//twemoji.maxcdn.com/twemoji.min.js"></script> 
+        <script src="http://twemoji.maxcdn.com/twemoji.min.js"></script> 
         <style>
             .app {
                 margin: 0;
-                font: 300 1.25em "Helvetica Neue",sans-serif;
+                font: 300 1.25em "Helvetica Neue", sans-serif;
             }
 
             @media (min-width: 40rem) {
@@ -29,7 +29,9 @@
                 }
             }
 
-            .header,.main__section,.footer {
+            .header,
+            .main__section,
+            .footer {
                 padding: 2rem;
             }
 
@@ -68,7 +70,8 @@
                 color: #fff;
             }
 
-            .my-birthday__hex,.other-birthdays__list>li>pre {
+            .my-birthday__hex,
+            .other-birthdays__list-item-hex {
                 color: #ffac33;
             }
 
@@ -94,7 +97,7 @@
                 list-style: none;
             }
 
-            .other-birthdays__list>li {
+            .other-birthdays__list > li {
                 padding: 2rem;
             }
 
@@ -113,13 +116,17 @@
     </head>
     <body class="app">
         <header class="header">
-            <h1 class="header__title">Birthday hex</h1>
+            <h1 class="header__title  js-page-title">Birthday hex</h1>
             <p class="header__description">Find your birthday hexcode</p>
         </header>
 
         <main class="main">
             <section class="main__section  choose-birthday">
-                <label class="choose-birthday__date-label">Enter your birthday:<br><input class="choose-birthday__date-selector" type="date" value="1986-09-12"></label>
+                <label class="choose-birthday__date-label">
+                    Enter your birthday:
+                    <br>
+                    <input class="choose-birthday__date-selector  js-date-selector" type="date" value="1986-09-12">
+                </label>
             </section>
             <section class="main__section  my-birthday  js-birthday">
                 <pre class="my-birthday__hex  js-hex"></pre>
@@ -144,8 +151,8 @@
         </footer>
 
         <script>
-            var birthdayInput = document.getElementsByTagName('input')[0],
-                pageTitle = document.getElementsByClassName('header__title')[0],
+            var birthdayInput = document.getElementsByClassName('js-date-selector')[0],
+                pageTitle = document.getElementsByClassName('js-page-title')[0],
                 footerHeart = document.getElementsByClassName('js-twemoji-link')[0],
                 famousBirthdays = [
                     {
@@ -202,10 +209,14 @@
 
                     getBirthdayHex(birthday);
                     document.getElementsByClassName('js-historical-list')[0].appendChild(famousBirthdaysListItem);
+
                     famousBirthdaysListItem.innerHTML = name;
+                    famousBirthdaysListItem.classList.add('other-birthdays__list-item');
                     famousBirthdaysListItem.appendChild(famousBirthdaysListItemHex);
-                    famousBirthdaysListItemHex.innerHTML = getBirthdayHex(birthday);
                     famousBirthdaysListItem.style.backgroundColor = getBirthdayHex(birthday);
+
+                    famousBirthdaysListItemHex.innerHTML = getBirthdayHex(birthday);
+                    famousBirthdaysListItemHex.classList.add('other-birthdays__list-item-hex');
                 }
             }
 

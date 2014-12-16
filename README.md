@@ -1,4 +1,4 @@
-# [Birthday hex](//chrisnager.github.io/birthday-hex)
+# Birthday hex
 
 [Find your birthday hexcode](//chrisnager.github.io/birthday-hex)
 
