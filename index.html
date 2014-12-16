@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Birthday Hex</title>
+        <meta name="viewport" content="width=device-width">
+        <style>
+            body{margin:0;font:300 1.25em "Helvetica Neue",sans-serif}
+            header,main,footer{padding:2em}
+            main{overflow:hidden;color:#fff}
+            h1{font-weight:500}a{text-decoration:none;color:#333}
+            input{box-sizing:border-box;width:100%;border:.125rem solid;border-radius:.25rem;font-size:1em}
+            h2{margin-top:6rem;font-size:1em}
+            .birthday-hex{display:block;font-size:2em}
+            .famous-birthdays-list{padding-left:0;list-style:none}
+            .famous-birthdays-list>li{padding:2rem}
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Birthday Hex</h1>
+            <p>Find your birthday hexcode</p>
+        </header>
+
+        <main>
+            <pre><code class="birthday-hex"></code></pre>
+            <label>When&rsquo;s your birthday: <input type="date" value="1986-09-12"></label>
+            <h2>Historical birthdays</h2>
+            <ul class="famous-birthdays-list"></ul>
+        </main>
+
+        <footer>
+            <small>
+                <a href="//twitter.com/chrisnager">@chrisnager</a>
+                &middot;
+                <a href="//github.com/chrisnager/birthday-hex">github</a>
+                &middot;
+                <a href="//whatcolourisit.scn9a.org/">inspiration</a>
+            </small>
+        </footer>
+
+        <script>
+            var birthdayInput = document.getElementsByTagName('input')[0],
+                famousBirthdays = [
+                    {
+                        name: 'George Washington',
+                        birthday: '1732-02-22'
+                    },
+                    {
+                        name: 'Bill Murray',
+                        birthday: '1950-09-21'
+                    },
+                    {
+                        name: 'R Kelly',
+                        birthday: '1967-01-08'
+                    }
+                ];
+
+            function getBirthdayHex(birthdayValue) {
+                var birthdayArray = birthdayValue.split('-'),
+                    birthdayYear = birthdayArray[0].slice(2, 4),
+                    birthdayMonth = birthdayArray[1],
+                    birthdayDay = birthdayArray[2],
+                    birthdayHex = '#' + birthdayMonth + birthdayDay + birthdayYear;
+
+                if (birthdayHex !== '#undefinedundefined') {
+                    return birthdayHex;
+                } else {
+                    return 'This is not an actual day';
+                }
+           }
+
+            function setHex(val) {
+                document.getElementsByTagName('main')[0].style.backgroundColor = getBirthdayHex(val);
+                document.getElementsByClassName('birthday-hex')[0].innerHTML = getBirthdayHex(val);
+            }
+
+            function showFamousBirthdays(birthdays) {
+                for (i = 0; i < birthdays.length; i++) {
+                    var name = birthdays[i].name,
+                        birthday = birthdays[i].birthday,
+                        famousBirthdaysListItem = document.createElement('li'),
+                        famousBirthdaysListItemHex = document.createElement('pre');
+
+                    getBirthdayHex(birthday);
+                    document.getElementsByClassName('famous-birthdays-list')[0].appendChild(famousBirthdaysListItem);
+                    famousBirthdaysListItem.innerHTML = name;
+                    famousBirthdaysListItem.appendChild(famousBirthdaysListItemHex);
+                    famousBirthdaysListItemHex.innerHTML = getBirthdayHex(birthday);
+                    famousBirthdaysListItem.style.backgroundColor = getBirthdayHex(birthday);
+                }
+            }
+
+            birthdayInput.addEventListener('input', function() {
+                setHex(birthdayInput.value);
+            });
+
+            setHex(birthdayInput.value);
+            showFamousBirthdays(famousBirthdays);
+        </script>
+    </body>
+</html>
