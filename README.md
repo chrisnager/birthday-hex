@@ -1,6 +1,6 @@
-# Birthday hex
+# [Birthday hex](//chrisnager.github.io/birthday-hex)
 
-Find your birthday hexcode
+[Find your birthday hexcode](//chrisnager.github.io/birthday-hex)
 
 ![Birthday hex app preview](birthday-hex.png)
 
