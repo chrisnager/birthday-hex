@@ -2,6 +2,8 @@
 
 Find your birthday hexcode
 
+[Birthday hex app preview](birthday-hex.png)
+
 ## License
 
 The MIT License (MIT)
