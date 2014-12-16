@@ -19,27 +19,33 @@
 
         <style>
             body{margin:0;font:300 1.25em "Helvetica Neue",sans-serif}
-            header,main,footer{padding:2em}
-            main{overflow:hidden;color:#fff}
-            h1{font-weight:500}a{text-decoration:none;color:#333}
-            input{box-sizing:border-box;width:100%;border:.125rem solid;border-radius:.25rem;font-size:1em}
-            h2{margin-top:6rem;font-size:1em}
+            header,section,h2,footer{padding:2rem}
+            main{color:#fff}
+            h1{font-weight:500}
+            a{text-decoration:none;color:#000}
+            label{cursor:pointer}
+            input{box-sizing:border-box;width:100%;margin:1em 0;border:.125rem solid;border-radius:.25rem;padding:1rem;font-size:1em}
+            h2{margin-top:6rem;font-size:1em;color:#000}
             .birthday-hex{display:block;font-size:2em}
             .famous-birthdays-list{padding-left:0;list-style:none}
             .famous-birthdays-list>li{padding:2rem}
+            .other-birthdays{padding:0}
         </style>
     </head>
     <body>
         <header>
             <h1>Birthday hex</h1>
-            <p>Find your birthday hexcode</p>
+            <label>Enter your birthday:<br><input type="date" value="1986-09-12"></label>
         </header>
 
         <main>
-            <pre><code class="birthday-hex"></code></pre>
-            <label>When&rsquo;s your birthday: <input type="date" value="1986-09-12"></label>
-            <h2>Historical birthdays</h2>
-            <ul class="famous-birthdays-list"></ul>
+            <section class="my-birthday">
+                <pre><code class="birthday-hex"></code></pre>
+            </section>
+            <section class="other-birthdays">
+                <h2>Historical hexcodes</h2>
+                <ul class="famous-birthdays-list"></ul>
+            </section>
         </main>
 
         <footer>
@@ -79,12 +85,12 @@
                 if (birthdayHex !== '#undefinedundefined') {
                     return birthdayHex;
                 } else {
-                    return 'This is not an actual day';
+                    return 'Not an actual day';
                 }
            }
 
             function setHex(val) {
-                document.getElementsByTagName('main')[0].style.backgroundColor = getBirthdayHex(val);
+                document.getElementsByClassName('my-birthday')[0].style.backgroundColor = getBirthdayHex(val);
                 document.getElementsByClassName('birthday-hex')[0].innerHTML = getBirthdayHex(val);
             }
 
